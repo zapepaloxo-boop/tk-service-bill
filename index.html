@@ -3,515 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T&K Service - ระบบออกบิลซ่อม</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <title>T&K Service Premium Creator</title>
     <style>
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Segoe UI', 'Trebuchet MS', 'FC Lamyai', sans-serif;
-        }
-        :root {
-            --primary: #1e3a8a;
-            --primary-dark: #0f172a;
-            --success: #059669;
-            --warning: #d97706;
-            --danger: #dc2626;
-        }
-        body { 
-            background: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%);
-            color: #334155; 
-            padding: 16px;
-            min-height: 100vh;
-        }
-        .app-bar { 
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark)); 
-            color: white; 
-            text-align: center; 
-            padding: 24px; 
-            border-radius: 16px; 
-            margin-bottom: 24px; 
-            font-size: 24px; 
-            font-weight: bold;
-            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
-            letter-spacing: 0.5px;
-        }
-        .container-main {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .card { 
-            background: white; 
-            padding: 28px; 
-            border-radius: 16px; 
-            border: 1px solid #e2e8f0;
-            margin-bottom: 24px; 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-            transition: box-shadow 0.3s ease;
-        }
-        .card:hover {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        .card h2 { 
-            font-size: 18px; 
-            font-weight: 700; 
-            color: var(--primary-dark); 
-            margin-bottom: 20px; 
-            padding-bottom: 12px; 
-            border-bottom: 3px solid var(--primary);
-        }
-        .form-group { 
-            margin-bottom: 16px; 
-        }
-        .row { 
-            display: flex; 
-            gap: 15px; 
-            margin-bottom: 16px; 
-            flex-wrap: wrap;
-        }
-        .col { 
-            flex: 1; 
-            min-width: 200px;
-        }
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            color: #475569;
-            letter-spacing: 0.3px;
-        }
-        label .required {
-            color: var(--danger);
-            font-weight: bold;
-        }
-        input, select, textarea { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px solid #cbd5e1; 
-            border-radius: 8px; 
-            font-size: 14px; 
-            color: #334155; 
-            background-color: #fff;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            font-family: inherit;
-        }
-        input:focus, select:focus, textarea:focus { 
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
-        }
-        input:invalid, select:invalid, textarea:invalid {
-            border-color: var(--danger);
-        }
-        .btn { 
-            display: block; 
-            width: 100%; 
-            padding: 14px; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            font-weight: 700; 
-            text-align: center; 
-            cursor: pointer; 
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
-        .btn-primary { 
-            background-color: var(--primary); 
-            color: white; 
-            box-shadow: 0 4px 6px rgba(30, 58, 138, 0.3);
-            border-bottom-color: var(--primary-dark);
-        }
-        .btn-primary:hover {
-            background-color: #1e40af;
-        }
-        .btn-success { 
-            background-color: var(--success); 
-            color: white; 
-            margin-top: 15px; 
-            box-shadow: 0 4px 6px rgba(5, 150, 105, 0.3);
-            border-bottom-color: #047857;
-        }
-        .btn-success:hover {
-            background-color: #059669;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .receipt-box { 
-            text-align: center; 
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9); 
-            padding: 30px; 
-            border-radius: 12px; 
-            border: 2px dashed #cbd5e1;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .receipt-preview { 
-            max-width: 100%; 
-            height: auto; 
-            border-radius: 8px; 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border: 1px solid #e2e8f0;
-        }
-        .item-row { 
-            display: flex; 
-            gap: 10px; 
-            margin-bottom: 10px;
-            align-items: flex-end;
-        }
-        .item-name { 
-            flex: 3; 
-        }
-        .item-price { 
-            flex: 1; 
-            min-width: 100px;
-        }
-        .item-row .btn-remove {
-            flex: 0 0 40px;
-            padding: 10px;
-            background-color: var(--danger);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .item-row .btn-remove:hover {
-            background-color: #b91c1c;
-        }
-        .summary-box {
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 8px;
-            margin-top: 16px;
-            border-left: 4px solid var(--primary);
-        }
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-        .summary-row.total {
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--success);
-            border-top: 2px solid #cbd5e1;
-            padding-top: 10px;
-            margin-top: 10px;
-        }
-        .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 16px;
-            display: none;
-        }
-        .alert.success {
-            background-color: #d1fae5;
-            color: #065f46;
-            border-left: 4px solid var(--success);
-            display: block;
-        }
-        .alert.error {
-            background-color: #fee2e2;
-            color: #991b1b;
-            border-left: 4px solid var(--danger);
-            display: block;
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-        .spinner {
-            border: 3px solid #e2e8f0;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 10px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .section-divider {
-            margin: 24px 0;
-            padding: 20px;
-            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
-            text-align: center;
-            font-weight: 600;
-            color: #64748b;
-            font-size: 13px;
-            border-radius: 8px;
-        }
-        @media (max-width: 768px) {
-            .row {
-                flex-direction: column;
-            }
-            .col {
-                flex: 1 1 100%;
-            }
-            .app-bar {
-                font-size: 18px;
-                padding: 16px;
-            }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+        body { background-color: #f1f5f9; color: #334155; padding: 16px; }
+        .app-bar { background: linear-gradient(135deg, #1e3a8a, #0f172a); color: white; text-align: center; padding: 20px; border-radius: 12px; margin-bottom: 20px; font-size: 20px; font-weight: bold; }
+        .card { background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05); }
+        .card h2 { font-size: 16px; font-weight: bold; color: #0f172a; margin-bottom: 18px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+        .form-group { margin-bottom: 14px; }
+        .row { display: flex; gap: 15px; margin-bottom: 14px; }
+        .col { flex: 1; }
+        label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: bold; color: #475569; }
+        input, select, textarea { width: 100%; padding: 11px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; color: #334155; background-color: #fff; }
+        .btn { display: block; width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; text-align: center; cursor: pointer; text-decoration: none; }
+        .btn-primary { background-color: #2563eb; color: white; box-shadow: 0 4px 6px rgb(37 99 235 / 0.2); }
+        .receipt-box { text-align: center; background-color: #f8fafc; padding: 15px; border-radius: 12px; border: 2px dashed #cbd5e1; }
+        .receipt-preview { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        .item-row { display: flex; gap: 10px; margin-bottom: 8px; }
+        .item-name { flex: 3; }
+        .item-price { flex: 1; }
     </style>
 </head>
 <body>
-    <div class="container-main">
-        <div class="app-bar">
-            🔧 T&K SYSTEMS - ระบบออกบิลซ่อม
-        </div>
-
-        <div class="alert" id="alert"></div>
-
-        <div class="card">
-            <h2>📝 ข้อมูลบันทึกงานซ่อม / ติดตั้งอุปกรณ์</h2>
-            <form id="billForm" action="/api/create_bill" method="POST">
-                <div class="row">
-                    <div class="col">
-                        <label>ชื่อ-นามสกุล ลูกค้า <span class="required">*</span></label>
-                        <input type="text" name="name" placeholder="เช่น นายสมชาย ใจดี" required>
-                    </div>
-                    <div class="col">
-                        <label>เบอร์โทรศัพท์ติดต่อ <span class="required">*</span></label>
-                        <input type="tel" name="phone" placeholder="09XXXXXXXX" pattern="[0-9\-\+\(\)\s]+" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>สถานที่ปฏิบัติงาน / ที่อยู่ลูกค้า</label>
-                    <input type="text" name="address" placeholder="เช่น 123 ซ.ลาดพร้าว ถ.ลาดพร้าว กรุงเทพฯ 10230">
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <label>ประเภทงาน (บันทึกรับงาน)</label>
-                        <select name="job_type" required>
-                            <option value="">-- เลือกประเภทงาน --</option>
-                            <option>🔧 งานซ่อมบำรุง</option>
-                            <option>💻 งานไอที / Electronics</option>
-                            <option>⚙️ งานติดตั้งอุปกรณ์</option>
-                            <option>📦 งานบริการอื่นๆ</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label>ประเภทอุปกรณ์ระบบไฟฟ้า</label>
-                        <select name="device">
-                            <option value="">-- เลือกอุปกรณ์ --</option>
-                            <option>เครื่องปรับอากาศ</option>
-                            <option>เครื่องซักผ้า</option>
-                            <option>โทรทัศน์</option>
-                            <option>ตู้เย็น</option>
-                            <option>เครื่องทำน้ำอุ่น</option>
-                            <option>ระบบไฟฟ้าในบ้าน</option>
-                            <option>อื่นๆ</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>ลักษณะอาการชำรุด / ปัญหาที่พบ</label>
-                    <textarea name="symptom" rows="3" placeholder="ระบุรายละเอียดอาการชำรุดของอุปกรณ์" style="resize: vertical;"></textarea>
-                </div>
-
-                <div class="section-divider">
-                    🛠️ ตารางบันทึกวัสดุ / รายการอะไหล่ / ค่าบริการ
-                </div>
-
-                <div class="form-group" id="itemsContainer">
-                    <div class="item-row">
-                        <input type="text" name="item1" class="item-name" placeholder="รายการที่ 1 - เช่น อะไหล่ / ค่าบริการ">
-                        <input type="number" name="price1" class="item-price" placeholder="ราคา (บาท)" min="0" step="0.01" value="">
-                        <button type="button" class="btn-remove" onclick="removeItem(this)" style="display:none;">✕</button>
-                    </div>
-                    <div class="item-row">
-                        <input type="text" name="item2" class="item-name" placeholder="รายการท���่ 2">
-                        <input type="number" name="price2" class="item-price" placeholder="ราคา (บาท)" min="0" step="0.01" value="">
-                        <button type="button" class="btn-remove" onclick="removeItem(this)" style="display:none;">✕</button>
-                    </div>
-                    <div class="item-row">
-                        <input type="text" name="item3" class="item-name" placeholder="รายการที่ 3">
-                        <input type="number" name="price3" class="item-price" placeholder="ราคา (บาท)" min="0" step="0.01" value="">
-                        <button type="button" class="btn-remove" onclick="removeItem(this)" style="display:none;">✕</button>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin: 12px 0;">
-                    <button type="button" class="btn btn-outline-primary" onclick="addItemRow()" style="background: white; color: var(--primary); border: 2px solid var(--primary); width: auto; display: inline-block; padding: 10px 20px;">
-                        ➕ เพิ่มรายการ
-                    </button>
-                </div>
-
-                <div class="summary-box">
-                    <div class="summary-row">
-                        <span>รวมค่าบริการ / อะไหล่:</span>
-                        <span id="totalAmount">0.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>ภาษีมูลค่าเพิ่ม (7%):</span>
-                        <span id="vatAmount">0.00</span>
-                    </div>
-                    <div class="summary-row total">
-                        <span>รวมทั้งสิ้น:</span>
-                        <span id="grandTotal">0.00</span>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="margin-top: 20px;">
-                    💾 ประมวลผลและออกบิลแจ้งซ่อมดีไซน์โมเดิร์น
-                </button>
-            </form>
-            <div class="loading" id="loadingSpinner">
-                <div class="spinner"></div>
-                <p>กำลังประมวลผล...</p>
+    <div class="app-bar">🔧 T&K SYSTEMS PREMIUM CREATOR</div>
+    <div class="card">
+        <h2>📝 ข้อมูลบันทึกงานซ่อม / ติดตั้งอุปกรณ์</h2>
+        <form action="/create_bill" method="POST">
+            <div class="row">
+                <div class="col"><label>ชื่อ-นามสกุล ลูกค้า *</label><input type="text" name="name" placeholder="ระบุชื่อลูกค้า" required></div>
+                <div class="col"><label>เบอร์โทรศัพท์ติดต่อ *</label><input type="text" name="phone" placeholder="ระบุเบอร์ติดต่อ" required></div>
             </div>
-        </div>
-
-        <div class="card">
-            <h2>📋 ใบแจ้งซ่อม / ใบเสร็จรับเงินล่าสุด</h2>
-            <div class="receipt-box" id="receiptBox">
-                <p style="color: #94a3b8; font-size: 14px;">
-                    📌 กรอกรายละเอียดงานและรายการอะไหล่ด้านบน ระบบจะสร้างบิลให้โดยอัตโนมัติ
-                </p>
+            <div class="form-group"><label>สถานที่ปฏิบัติงาน / ที่อยู่ลูกค้า</label><input type="text" name="address" placeholder="บ้านเลขที่ หมู่ ซอย ถนน"></div>
+            <div class="row">
+                <div class="col">
+                    <label>ประเภทงาน (บันทึกรับงาน)</label>
+                    <select name="job_type">
+                        <option>🔧 งานซ่อมบำรุง</option>
+                        <option>💻 งานไอที / Electronics</option>
+                        <option>⚙️ งานติดตั้งอุปกรณ์</option>
+                        <option>📦 งานบริการอื่นๆ</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>ประเภทอุปกรณ์ระบบไฟฟ้า</label>
+                    <select name="device">
+                        <option>เครื่องปรับอากาศ</option>
+                        <option>เครื่องซักผ้า</option>
+                        <option>โทรทัศน์</option>
+                        <option>ตู้เย็น</option>
+                        <option>เครื่องทำน้ำอุ่น</option>
+                        <option>ระบบไฟฟ้าในบ้าน</option>
+                        <option>อื่นๆ</option>
+                    </select>
+                </div>
             </div>
-        </div>
-
-        <div style="text-align: center; color: #64748b; font-size: 12px; margin-top: 32px; padding: 16px;">
-            <p>© 2026 T&K Service Systems | ระบบออกบิลซ่อมและติดตั้งอุปกรณ์ | v1.0 Modern Edition</p>
+            <div class="form-group"><label>ลักษณะอาการชำรุด / ปัญหาที่พบ</label><textarea name="symptom" rows="2" placeholder="ระบุรายละเอียดอาการเสีย"></textarea></div>
+            <h2 style="font-size:14px; margin-top:20px; color:#1e3a8a;">🛠️ ตารางบันทึกวัสดุ / รายการอะไหล่ / ค่าบริการ</h2>
+            <div class="form-group">
+                <div class="item-row"><input type="text" name="item1" class="item-name" placeholder="รายการที่ 1"><input type="number" name="p1" class="item-price" placeholder="บาท" value="0"></div>
+                <div class="item-row"><input type="text" name="item2" class="item-name" placeholder="รายการที่ 2"><input type="number" name="p2" class="item-price" placeholder="บาท" value="0"></div>
+                <div class="item-row"><input type="text" name="item3" class="item-name" placeholder="รายการที่ 3"><input type="number" name="p3" class="item-price" placeholder="บาท" value="0"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">💾 ประมวลผลและออกบิลแจ้งซ่อมดีไซน์โมเดิร์น</button>
+        </form>
+    </div>
+    <div class="card">
+        <h2>📋 บิลใบแจ้งซ่อมสำเร็จรูป (สามารถแคปหน้าจอเพื่อครอปตัดขอบนำไปใช้ได้ทันที)</h2>
+        <div class="receipt-box">
+            {% if last_img %}
+                <img src="/get_image/{{ last_img }}" class="receipt-preview">
+            {% else %}
+                <p style="color: #94a3b8; font-size: 14px; padding: 40px 0;">กรอกรายละเอียดงานด้านบน ระบบจะแปลงข้อมูลและแสดงรูปบิลตรงนี้อัตโนมัติ</p>
+            {% endif %}
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const form = document.getElementById('billForm');
-        const alert = document.getElementById('alert');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-
-        // คำนวณรวมเงิน
-        function calculateTotal() {
-            let total = 0;
-            const itemRows = document.querySelectorAll('.item-row');
-            
-            itemRows.forEach((row, index) => {
-                const priceInput = row.querySelector('.item-price');
-                const price = parseFloat(priceInput.value) || 0;
-                total += price;
-            });
-
-            const vat = total * 0.07;
-            const grandTotal = total + vat;
-
-            document.getElementById('totalAmount').textContent = total.toFixed(2) + ' บาท';
-            document.getElementById('vatAmount').textContent = vat.toFixed(2) + ' บาท';
-            document.getElementById('grandTotal').textContent = grandTotal.toFixed(2) + ' บาท';
-        }
-
-        // เพิ่มรายการใหม่
-        function addItemRow() {
-            const container = document.getElementById('itemsContainer');
-            const rowCount = container.querySelectorAll('.item-row').length + 1;
-            
-            const newRow = document.createElement('div');
-            newRow.className = 'item-row';
-            newRow.innerHTML = `
-                <input type="text" name="item${rowCount}" class="item-name" placeholder="รายการที่ ${rowCount}">
-                <input type="number" name="price${rowCount}" class="item-price" placeholder="ราคา (บาท)" min="0" step="0.01">
-                <button type="button" class="btn-remove" onclick="removeItem(this)">✕</button>
-            `;
-            
-            container.appendChild(newRow);
-            
-            // เพิ่ม event listener สำหรับการคำนวณ
-            newRow.querySelector('.item-price').addEventListener('input', calculateTotal);
-            calculateTotal();
-        }
-
-        // ลบรายการ
-        function removeItem(btn) {
-            btn.parentElement.remove();
-            calculateTotal();
-        }
-
-        // เพิ่ม event listeners
-        document.querySelectorAll('.item-price').forEach(input => {
-            input.addEventListener('input', calculateTotal);
-        });
-
-        // ส่ง form
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            loadingSpinner.style.display = 'block';
-            alert.style.display = 'none';
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch('/api/create_bill', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    showAlert('✅ สร้างบิลสำเร็จ!', 'success');
-                    displayReceipt(result.image_url);
-                    form.reset();
-                    calculateTotal();
-                } else {
-                    showAlert('❌ เกิดข้อผิดพลาด: ' + result.error, 'error');
-                }
-            } catch (error) {
-                showAlert('❌ ข้อผิดพลาดในการเชื่อมต่อ: ' + error.message, 'error');
-                console.error('Error:', error);
-            } finally {
-                loadingSpinner.style.display = 'none';
-            }
-        });
-
-        // แสดง alert
-        function showAlert(message, type) {
-            alert.textContent = message;
-            alert.className = `alert ${type}`;
-            alert.style.display = 'block';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 5000);
-        }
-
-        // แสดงใบเสร็จ
-        function displayReceipt(imageUrl) {
-            const receiptBox = document.getElementById('receiptBox');
-            receiptBox.innerHTML = `
-                <div style="width: 100%;">
-                    <img src="${imageUrl}" class="receipt-preview" alt="ใบเสร็จ">
-                    <a href="${imageUrl}" download class="btn btn-success">
-                        📥 บันทึกรูปบิลลงเครื่อง
-                    </a>
-                </div>
-            `;
-        }
-
-        // คำนวณเริ่มต้น
-        calculateTotal();
-    </script>
 </body>
 </html>
